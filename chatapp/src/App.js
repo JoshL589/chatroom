@@ -27,7 +27,7 @@ function App() {
   return (
     <div className="App">
       <header>
-        <h1>No curse word chat room 🚀</h1>
+        <h1>SFW chatroom 🚀</h1>
         <SignOut />
       </header>
       <section>{user ? <ChatRoom /> : <SignIn />}</section>
@@ -86,6 +86,7 @@ const ChatRoom = () => {
       </main>
       <form onSubmit={sendMessage}>
         <input
+          placeholder="swear words are auto banned :)"
           value={formValue}
           onChange={(e) => setFormValue(e.target.value)}
         />
