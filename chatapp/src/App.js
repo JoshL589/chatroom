@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useRef } from "react";
 import "./App.css";
 
 import firebase from "firebase/compat/app";
@@ -25,7 +26,10 @@ function App() {
 
   return (
     <div className="App">
-      <header></header>
+      <header>
+        <h1>No curse word chat room 🚀</h1>
+        <SignOut />
+      </header>
       <section>{user ? <ChatRoom /> : <SignIn />}</section>
     </div>
   );
@@ -47,6 +51,8 @@ const SignOut = () => {
 };
 
 const ChatRoom = () => {
+  const dummy = useRef();
+
   const messagesRef = firestore.collection("messages");
   const query = messagesRef.orderBy("createdAt").limit(25);
 
@@ -67,14 +73,17 @@ const ChatRoom = () => {
     });
 
     setFormValue("");
+
+    dummy.current.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
     <>
-      <div>
+      <main>
         {messages &&
           messages.map((msg) => <ChatMessage key={msg.id} message={msg} />)}
-      </div>
+        <div ref={dummy}></div>
+      </main>
       <form onSubmit={sendMessage}>
         <input
           value={formValue}
